@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "cross-env DEBUG=W6* PORT=4600 node ./dist/index.js -w",
-    "start:mon": "cross-env DEBUG=W6* PORT=4600 nodemon ./dist/index.js",
+    "start": "cross-env DEBUG=W6* PORT=4900 node ./dist/index.js -w",
+    "start:mon": "cross-env DEBUG=W6* PORT=4900 nodemon ./dist/index.js",
     "build": "tsc -w",
     "build:prod": "tsc",
     "test": "jest --watchAll --coverage",
