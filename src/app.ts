@@ -1,7 +1,7 @@
-import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import createDebug from 'debug';
+import express from 'express';
 
 const debug = createDebug('W6:app');
 export const app = express();
