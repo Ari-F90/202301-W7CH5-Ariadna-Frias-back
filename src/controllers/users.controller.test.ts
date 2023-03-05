@@ -1,5 +1,5 @@
 import { UsersController } from './users.controller';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 describe('Given the UsersController', () => {
   const mockRepoUsers = {
     query: jest.fn(),
@@ -26,7 +26,7 @@ describe('Given the UsersController', () => {
       expect(resp.json).toHaveBeenCalled();
     });
     test('And there is an error, next function will be called', async () => {
-      (mockRepoUsers.query as jest.Mock).mockRejectedValue('');
+      (mockRepoUsers.query as jest.Mock).mockRejectedValue('error');
       await controller.getAll(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -51,7 +51,7 @@ describe('Given the UsersController', () => {
           passwd: 'test',
         },
       } as unknown as Request;
-      (mockRepoUsers.create as jest.Mock).mockRejectedValue('');
+      (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -61,7 +61,7 @@ describe('Given the UsersController', () => {
           email: 'test',
         },
       } as unknown as Request;
-      (mockRepoUsers.create as jest.Mock).mockRejectedValue('');
+      (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -86,7 +86,7 @@ describe('Given the UsersController', () => {
           passwd: 'test',
         },
       } as unknown as Request;
-      (mockRepoUsers.search as jest.Mock).mockRejectedValue('');
+      (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -96,7 +96,7 @@ describe('Given the UsersController', () => {
           email: 'test',
         },
       } as unknown as Request;
-      (mockRepoUsers.search as jest.Mock).mockRejectedValue('');
+      (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
