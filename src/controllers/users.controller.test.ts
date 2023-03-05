@@ -36,7 +36,7 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: '',
+          email: 'test',
           passwd: '',
         },
       } as unknown as Request;
@@ -58,7 +58,7 @@ describe('Given the UsersController', () => {
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: '',
+          email: 'test',
         },
       } as unknown as Request;
       mockRepoUsers.create.mockRejectedValue('error');
@@ -70,7 +70,7 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: '',
+          email: 'test',
           passwd: '',
         },
       } as unknown as Request;
@@ -93,7 +93,7 @@ describe('Given the UsersController', () => {
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: '',
+          email: 'test',
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
