@@ -26,7 +26,7 @@ describe('Given the UsersController', () => {
       expect(resp.json).toHaveBeenCalled();
     });
     test('And there is an error, next function will be called', async () => {
-      mockRepoUsers.query.mockRejectedValue('error');
+      (mockRepoUsers.query as jest.Mock).mockRejectedValue('error');
       await controller.getAll(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -36,8 +36,8 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: 'test',
-          passwd: '',
+          email: 'test1',
+          passwd: 'passwd1',
         },
       } as unknown as Request;
       await controller.register(req, resp, next);
@@ -48,20 +48,20 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: '',
+          passwd: 'passwd2',
         },
       } as unknown as Request;
-      mockRepoUsers.create.mockRejectedValue('error');
+      (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: 'test',
+          email: 'test3',
         },
       } as unknown as Request;
-      mockRepoUsers.create.mockRejectedValue('error');
+      (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -70,12 +70,12 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: 'test',
-          passwd: '',
+          email: 'test4',
+          passwd: 'passwd4',
         },
       } as unknown as Request;
 
-      mockRepoUsers.search.mockResolvedValue([]);
+      (mockRepoUsers.search as jest.Mock).mockResolvedValue([]);
       await controller.login(req, resp, next);
       expect(resp.status).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
@@ -83,10 +83,10 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: '',
+          passwd: 'test5',
         },
       } as unknown as Request;
-      mockRepoUsers.search.mockRejectedValue('error');
+      (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -96,7 +96,7 @@ describe('Given the UsersController', () => {
           email: 'test',
         },
       } as unknown as Request;
-      mockRepoUsers.search.mockRejectedValue('error');
+      (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
