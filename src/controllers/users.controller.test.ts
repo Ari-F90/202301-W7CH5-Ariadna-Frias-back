@@ -36,8 +36,8 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: 'pepe',
-          passwd: '123',
+          email: '',
+          passwd: '',
         },
       } as unknown as Request;
       await controller.register(req, resp, next);
@@ -48,7 +48,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: '1234',
+          passwd: '',
         },
       } as unknown as Request;
       mockRepoUsers.create.mockRejectedValue('error');
@@ -58,7 +58,7 @@ describe('Given the UsersController', () => {
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: 'pepe',
+          email: '',
         },
       } as unknown as Request;
       mockRepoUsers.create.mockRejectedValue('error');
@@ -70,8 +70,8 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: 'pepe',
-          passwd: '12345',
+          email: '',
+          passwd: '',
         },
       } as unknown as Request;
 
@@ -83,7 +83,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: '123456',
+          passwd: '',
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
@@ -93,7 +93,7 @@ describe('Given the UsersController', () => {
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: 'pepe',
+          email: '',
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
