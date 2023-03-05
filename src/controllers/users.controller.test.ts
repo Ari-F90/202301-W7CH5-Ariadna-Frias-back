@@ -51,7 +51,7 @@ describe('Given the UsersController', () => {
           passwd: 'passwd2',
         },
       } as unknown as Request;
-      (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
+      mockRepoUsers.create.mockRejectedValue('error');
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -61,7 +61,7 @@ describe('Given the UsersController', () => {
           email: 'test3',
         },
       } as unknown as Request;
-      (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
+      mockRepoUsers.create.mockRejectedValue('error');
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -75,7 +75,7 @@ describe('Given the UsersController', () => {
         },
       } as unknown as Request;
 
-      (mockRepoUsers.search as jest.Mock).mockResolvedValue([]);
+      mockRepoUsers.search.mockResolvedValue([]);
       await controller.login(req, resp, next);
       expect(resp.status).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
@@ -86,7 +86,7 @@ describe('Given the UsersController', () => {
           passwd: 'test5',
         },
       } as unknown as Request;
-      (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
+      mockRepoUsers.search.mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -96,7 +96,7 @@ describe('Given the UsersController', () => {
           email: 'test',
         },
       } as unknown as Request;
-      (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
+      mockRepoUsers.search.mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
