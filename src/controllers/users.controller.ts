@@ -3,7 +3,6 @@ import { Response, Request, NextFunction } from 'express';
 import { Repo } from '../repository/repo.interface.js';
 import { User } from '../entities/user.js';
 import createDebug from 'debug';
-import { RequestPlus } from '../interceptors/logged.js';
 import { HTTPError } from '../errors/errors.js';
 import { Auth, PayloadToken } from '../services/auth.js';
 const debug = createDebug('CH7:controller:users');
