@@ -37,7 +37,7 @@ describe('Given the UsersController', () => {
       const req = {
         body: {
           email: 'test1',
-          passwd: 'passwd1',
+          passwd: 'pass',
         },
       } as unknown as Request;
       await controller.register(req, resp, next);
@@ -48,7 +48,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: 'passwd2',
+          passwd: 'pa',
         },
       } as unknown as Request;
       mockRepoUsers.create.mockRejectedValue('error');
@@ -71,7 +71,7 @@ describe('Given the UsersController', () => {
       const req = {
         body: {
           email: 'test4',
-          passwd: 'passwd4',
+          passwd: 'p',
         },
       } as unknown as Request;
 
@@ -83,7 +83,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: 'passwd5',
+          passwd: '',
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
