@@ -4,7 +4,7 @@ import http from 'http';
 import { app } from './app.js';
 import { dbConnect } from './db/db.connect.js';
 
-const debug = createDebug('W6');
+const debug = createDebug('CH7');
 const PORT = process.env.PORT || 4500;
 
 const server = http.createServer(app);
