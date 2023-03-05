@@ -70,29 +70,4 @@ export class UsersController {
       next(error);
     }
   }
-
-  async addFriend(req: RequestPlus, resp: Response, next: NextFunction) {
-    try {
-      debug('adding a friend');
-      req.body.id = req.params.id ? req.params.id : req.body.id;
-      const data = await this.repoUsers.update(req.body);
-      resp.json({
-        results: [data],
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async delete(req: Request, resp: Response, next: NextFunction) {
-    try {
-      debug('delete');
-      await this.repoUsers.delete(req.params.id);
-      resp.json({
-        results: [],
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
 }
