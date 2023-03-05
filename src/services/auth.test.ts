@@ -1,4 +1,4 @@
-import { Auth, PayloadToken } from './auth';
+import { Auth } from './auth';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
