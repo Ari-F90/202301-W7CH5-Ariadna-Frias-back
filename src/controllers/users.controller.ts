@@ -69,4 +69,36 @@ export class UsersController {
       next(error);
     }
   }
+
+  async addFriend(req: Request, resp: Response, next: NextFunction) {
+    try {
+      if (!req.params.id || !req.body.id)
+        throw new HTTPError(404, 'Not found', 'Not found valid ID');
+      const userId = await this.repoUsers.queryId(req.params.id);
+      const newFriend = await this.repoUsers.queryId(req.body.id);
+      userId.friends.push(newFriend);
+      await this.repoUsers.update(userId);
+      resp.json({
+        userId,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addEnemy(req: Request, resp: Response, next: NextFunction) {
+    try {
+      if (!req.params.id || !req.body.id)
+        throw new HTTPError(404, 'Not found', 'Not found valid ID');
+      const userId = await this.repoUsers.queryId(req.params.id);
+      const newEnemy = await this.repoUsers.queryId(req.body.id);
+      userId.enemies.push(newEnemy);
+      await this.repoUsers.update(userId);
+      resp.json({
+        userId,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
