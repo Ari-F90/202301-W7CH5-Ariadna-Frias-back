@@ -36,8 +36,8 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: 'test',
-          passwd: 'test',
+          email: 'test1',
+          passwd: 'passwd1',
         },
       } as unknown as Request;
       await controller.register(req, resp, next);
@@ -48,7 +48,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: 'test',
+          passwd: 'passwd2',
         },
       } as unknown as Request;
       (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
@@ -58,7 +58,7 @@ describe('Given the UsersController', () => {
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: 'test',
+          email: 'test3',
         },
       } as unknown as Request;
       (mockRepoUsers.create as jest.Mock).mockRejectedValue('error');
@@ -70,8 +70,8 @@ describe('Given the UsersController', () => {
     test('And all the data is correctly introduced, there should be a status and a json response', async () => {
       const req = {
         body: {
-          email: 'test',
-          passwd: 'test',
+          email: 'test4',
+          passwd: 'passwd4',
         },
       } as unknown as Request;
 
@@ -83,7 +83,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: 'test',
+          passwd: 'test5',
         },
       } as unknown as Request;
       (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
@@ -93,7 +93,7 @@ describe('Given the UsersController', () => {
     test('And the password is missing, next function will be called', async () => {
       const req = {
         body: {
-          email: 'test',
+          email: 'test6',
         },
       } as unknown as Request;
       (mockRepoUsers.search as jest.Mock).mockRejectedValue('error');
