@@ -5,7 +5,6 @@ import { User } from '../entities/user.js';
 import createDebug from 'debug';
 import { HTTPError } from '../errors/errors.js';
 import { Auth, PayloadToken } from '../services/auth.js';
-import { userInfo } from 'os';
 const debug = createDebug('CH7:controller:users');
 
 export class UsersController {
