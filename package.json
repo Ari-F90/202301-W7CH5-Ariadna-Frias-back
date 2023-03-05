@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "cross-env DEBUG=CH7* PORT=4900 node ./dist/index.js -w",
+    "start": "cross-env DEBUG=CH7* PORT=4900 node ./dist/index.js",
     "start:mon": "cross-env DEBUG=CH7* PORT=4900 nodemon ./dist/index.js",
     "build": "tsc -w",
     "build:prod": "tsc",
