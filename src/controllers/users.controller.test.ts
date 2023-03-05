@@ -26,7 +26,7 @@ describe('Given the UsersController', () => {
       expect(resp.json).toHaveBeenCalled();
     });
     test('And there is an error, next function will be called', async () => {
-      (mockRepoUsers.query as jest.Mock).mockRejectedValue('error');
+      mockRepoUsers.query.mockRejectedValue('error');
       await controller.getAll(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -83,7 +83,7 @@ describe('Given the UsersController', () => {
     test('And the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          passwd: 'test5',
+          passwd: 'passwd5',
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
