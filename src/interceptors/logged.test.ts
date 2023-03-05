@@ -1,7 +1,6 @@
 import { logged, RequestPlus } from './logged';
-import { Response, NextFunction, Request } from 'express';
+import { Response } from 'express';
 import { Auth } from '../services/auth';
-import { token } from 'morgan';
 
 jest.mock('../services/auth.js');
 
