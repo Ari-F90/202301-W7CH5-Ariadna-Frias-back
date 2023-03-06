@@ -5,6 +5,7 @@ import { User } from '../entities/user.js';
 import createDebug from 'debug';
 import { HTTPError } from '../errors/errors.js';
 import { Auth, PayloadToken } from '../services/auth.js';
+import { RequestPlus } from '../interceptors/logged.js';
 const debug = createDebug('CH7:controller:users');
 
 export class UsersController {
@@ -70,11 +71,12 @@ export class UsersController {
     }
   }
 
-  async addFriend(req: Request, resp: Response, next: NextFunction) {
+  async addFriend(req: RequestPlus, resp: Response, next: NextFunction) {
+    debug('Adding friend...');
     try {
-      if (!req.params.id || !req.body.id)
+      if (!req.info?.id || !req.body.id)
         throw new HTTPError(404, 'Not found', 'Not found valid ID');
-      const userId = await this.repoUsers.queryId(req.params.id);
+      const userId = await this.repoUsers.queryId(req.info.id);
       const newFriend = await this.repoUsers.queryId(req.body.id);
       userId.friends.push(newFriend);
       await this.repoUsers.update(userId);
@@ -86,11 +88,11 @@ export class UsersController {
     }
   }
 
-  async addEnemy(req: Request, resp: Response, next: NextFunction) {
+  async addEnemy(req: RequestPlus, resp: Response, next: NextFunction) {
     try {
-      if (!req.params.id || !req.body.id)
+      if (!req.info?.id || !req.body.id)
         throw new HTTPError(404, 'Not found', 'Not found valid ID');
-      const userId = await this.repoUsers.queryId(req.params.id);
+      const userId = await this.repoUsers.queryId(req.info.id);
       const newEnemy = await this.repoUsers.queryId(req.body.id);
       userId.enemies.push(newEnemy);
       await this.repoUsers.update(userId);

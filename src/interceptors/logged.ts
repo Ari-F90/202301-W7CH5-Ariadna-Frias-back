@@ -1,12 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import { HTTPError } from '../errors/errors.js';
 import { Auth, PayloadToken } from '../services/auth.js';
+import createDebug from 'debug';
+
+const debug = createDebug('CH7:interceptor');
 
 export interface RequestPlus extends Request {
   info?: PayloadToken;
 }
 
 export function logged(req: RequestPlus, resp: Response, next: NextFunction) {
+  debug('Logging...');
   try {
     const authHeader = req.get('Authorization');
     if (!authHeader)
@@ -16,6 +20,7 @@ export function logged(req: RequestPlus, resp: Response, next: NextFunction) {
     const token = authHeader.slice(7);
     const payload = Auth.verifyJWTGettingPayload(token);
     req.info = payload;
+    debug(req.info.email);
     next();
   } catch (error) {
     next(error);

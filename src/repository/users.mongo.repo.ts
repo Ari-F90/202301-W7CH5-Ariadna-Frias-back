@@ -1,83 +1,84 @@
 import createDebug from 'debug';
-import { User } from '../entities/user';
-import { HTTPError } from '../errors/errors.js';
-import { Repo } from './repo.interface';
 import { UserModel } from './users.mongo.model.js';
+import { User } from '../entities/user.js';
 
-const debug = createDebug('CH7:repo:users');
+import { HTTPError } from '../errors/errors.js';
+import { Repo } from './repo.interface.js';
+const debug = createDebug('challenge:user-mongo-repo');
 
 export class UsersMongoRepo implements Repo<User> {
-  constructor() {
-    debug('Instantiate');
+  public constructor() {
+    debug('User Mongo Repo instantiating!');
   }
 
   async query(): Promise<User[]> {
-    debug('query');
-    const data = await UserModel.find().populate(
-      'friends',
-      {
+    const data = await UserModel.find()
+      .populate('friends', { friends: 0, enemies: 0 })
+      .populate('enemies', {
         friends: 0,
         enemies: 0,
-      },
-      'enemies',
-      { friends: 0, enemies: 0 }
-    );
+      });
+
     return data;
   }
 
   async queryId(id: string): Promise<User> {
-    debug('queryId');
-    const data = await UserModel.findById(id).populate(
-      'friends',
-      {
+    debug('queryId: ' + id);
+    const data = await UserModel.findById(id)
+      .populate('friends', { friends: 0, enemies: 0 })
+      .populate('enemies', {
         friends: 0,
         enemies: 0,
-      },
-      'enemies',
-      { friends: 0, enemies: 0 }
-    );
-    if (!data) throw new HTTPError(404, 'Not found', 'Id not found in queryId');
+      });
+
+    if (!data)
+      throw new HTTPError(
+        404,
+        'Id not found',
+        'Id not found while doing queryId'
+      );
     return data;
   }
 
-  async search(query: { key: string; value: unknown }): Promise<User[]> {
-    debug('search');
-    const data = await UserModel.find({ [query.key]: query.value }).populate(
-      'friends',
-      {
+  async search(query: { key: string; value: unknown }) {
+    debug('search method');
+    const data = await UserModel.find({ [query.key]: query.value })
+      .populate('friends', {
         friends: 0,
         enemies: 0,
-      },
-      'enemies',
-      { friends: 0, enemies: 0 }
-    );
+      })
+      .populate('enemies', { friends: 0, enemies: 0 });
     return data;
   }
 
   async create(info: Partial<User>): Promise<User> {
-    debug('create');
+    debug('create' + info.email);
     const data = await UserModel.create(info);
     return data;
   }
 
   async update(info: Partial<User>): Promise<User> {
-    debug('update');
+    debug('update ' + info.name);
     const data = await UserModel.findByIdAndUpdate(info.id, info, {
       new: true,
     });
-
-    if (!data) throw new HTTPError(404, 'Not found', 'Id not found in update');
+    if (!data)
+      throw new HTTPError(
+        404,
+        'Email not found!',
+        'Email not found in update!'
+      );
     return data;
   }
 
   async delete(id: string): Promise<void> {
-    debug('delete');
+    debug('delete: ' + id);
     const data = await UserModel.findByIdAndDelete(id);
     if (!data)
       throw new HTTPError(
         404,
-        'Not found',
-        'Delete not possible: id not found'
+        'Delete not possible',
+        'Id not found for annihilation of account'
       );
   }
 }
