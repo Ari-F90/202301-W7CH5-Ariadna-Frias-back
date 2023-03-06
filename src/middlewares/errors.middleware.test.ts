@@ -17,7 +17,7 @@ describe('Given errorsMiddleware', () => {
       // Arrange
       const error = new MongooseError.CastError('', '', '');
       // Act
-      errorsMiddleware(error, req, resp, next);
+      errorsMiddleware(error, req, resp);
       // Assert
       expect(resp.status).toHaveBeenLastCalledWith(400);
     });
@@ -28,7 +28,7 @@ describe('Given errorsMiddleware', () => {
       // Arrange
       const error = new MongooseError.ValidationError();
       // Act
-      errorsMiddleware(error, req, resp, next);
+      errorsMiddleware(error, req, resp);
       // Assert
       expect(resp.status).toHaveBeenCalledWith(406);
     });
@@ -39,7 +39,7 @@ describe('Given errorsMiddleware', () => {
       // Arrange
       const error = new HTTPError(418, 'Tea', 'Pot');
       // Act
-      errorsMiddleware(error, req, resp, next);
+      errorsMiddleware(error, req, resp);
       // Assert
       expect(resp.status).toHaveBeenCalledWith(418);
     });
@@ -50,7 +50,7 @@ describe('Given errorsMiddleware', () => {
       // Arrange
       const error = new Error('Tea Pot');
       // Act
-      errorsMiddleware(error, req, resp, next);
+      errorsMiddleware(error, req, resp);
       // Assert
       expect(resp.status).toHaveBeenCalledWith(500);
     });
