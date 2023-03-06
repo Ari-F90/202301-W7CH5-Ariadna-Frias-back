@@ -1,9 +1,9 @@
 import morgan from 'morgan';
 import cors from 'cors';
 import createDebug from 'debug';
-import express, { Request, Response, NextFunction } from 'express';
-import { CustomError } from './errors/errors.js';
+import express from 'express';
 import { usersRouter } from './router/users.router.js';
+import { errorsMiddleware } from './middlewares/errors.middleware.js';
 
 const debug = createDebug('WCH7:app');
 export const app = express();
@@ -27,20 +27,4 @@ app.get('/', (_req, resp) => {
   });
 });
 
-app.use(
-  (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
-    debug('Soy el middleware de errores');
-    const status = error.statusCode || 500;
-    const statusMessage = error.statusMessage || 'Internal server error';
-    resp.status(status);
-    resp.json({
-      error: [
-        {
-          status,
-          statusMessage,
-        },
-      ],
-    });
-    debug(status, statusMessage, error.message);
-  }
-);
+app.use(errorsMiddleware);
