@@ -17,8 +17,7 @@ export class UsersMongoRepo implements Repo<User> {
       .populate('enemies', {
         friends: 0,
         enemies: 0,
-      })
-      .exec();
+      });
 
     return data;
   }
@@ -30,8 +29,8 @@ export class UsersMongoRepo implements Repo<User> {
       .populate('enemies', {
         friends: 0,
         enemies: 0,
-      })
-      .exec();
+      });
+
     if (!data)
       throw new HTTPError(
         404,
@@ -41,9 +40,14 @@ export class UsersMongoRepo implements Repo<User> {
     return data;
   }
 
-  async search(query: { key: string; value: unknown }): Promise<User[]> {
-    debug('search');
-    const data = UserModel.find({ [query.key]: query.value });
+  async search(query: { key: string; value: unknown }) {
+    debug('search method');
+    const data = await UserModel.find({ [query.key]: query.value })
+      .populate('friends', {
+        friends: 0,
+        enemies: 0,
+      })
+      .populate('enemies', { friends: 0, enemies: 0 });
     return data;
   }
 
