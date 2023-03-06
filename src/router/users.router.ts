@@ -9,6 +9,12 @@ export const usersRouter = Router();
 const repoUsers = new UsersMongoRepo();
 const controller = new UsersController(repoUsers);
 
-usersRouter.get('/', logged, controller.getAll.bind(controller));
+usersRouter.get('/', controller.getAll.bind(controller));
 usersRouter.post('/register', controller.register.bind(controller));
 usersRouter.post('/login', controller.login.bind(controller));
+usersRouter.patch('/addFriend', logged, controller.addFriend.bind(controller));
+usersRouter.patch(
+  '/addEnemy/:id',
+  logged,
+  controller.addEnemy.bind(controller)
+);
